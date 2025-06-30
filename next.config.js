@@ -33,4 +33,15 @@ module.exports = withMarkdoc({
       },
     ];
   },
+  
+  // Webpack configuration for Markdoc
+  webpack: (config, { isServer }) => {
+    // Handle .mdoc files
+    config.module.rules.push({
+      test: /\.mdoc$/,
+      use: '@markdoc/next.js/loader',
+    });
+    
+    return config;
+  },
 });

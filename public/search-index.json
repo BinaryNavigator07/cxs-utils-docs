@@ -1,20 +1,182 @@
 [
   {
-    "title": "Introduction",
-    "url": "/",
-    "content": "Welcome to the documentation. This section introduces the project and its goals.",
-    "headings": ["Getting Started", "Overview"]
+    "id": "/docs/datapoints",
+    "path": "/docs/datapoints",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
   },
   {
-    "title": "Installation",
-    "url": "/installation",
-    "content": "Learn how to install the project, including prerequisites and setup steps.",
-    "headings": ["Requirements", "Setup", "Troubleshooting"]
+    "id": "/docs/entities/identification",
+    "path": "/docs/entities/identification",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
   },
   {
-    "title": "API Reference",
-    "url": "/api",
-    "content": "Detailed API documentation, including endpoints, parameters, and response formats.",
-    "headings": ["Endpoints", "Authentication", "Examples"]
+    "id": "/docs/entities",
+    "path": "/docs/entities",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/entities/roles",
+    "path": "/docs/entities/roles",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/integrations",
+    "path": "/docs/integrations",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/best-practices",
+    "path": "/docs/semantic-events/best-practices",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/by-category",
+    "path": "/docs/semantic-events/bible/by-category",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/core-events",
+    "path": "/docs/semantic-events/bible/core-events",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/example-events/hotel-list-viewed-example",
+    "path": "/docs/semantic-events/bible/example-events/hotel-list-viewed-example",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/example-events/hotel-viewed-example",
+    "path": "/docs/semantic-events/bible/example-events/hotel-viewed-example",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/example-events",
+    "path": "/docs/semantic-events/bible/example-events",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/example-events/room-list-viewed-example",
+    "path": "/docs/semantic-events/bible/example-events/room-list-viewed-example",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible",
+    "path": "/docs/semantic-events/bible",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/bible/travel-and-hospitality",
+    "path": "/docs/semantic-events/bible/travel-and-hospitality",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/core-functions",
+    "path": "/docs/semantic-events/core-functions",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/events-vs-timestamps",
+    "path": "/docs/semantic-events/events-vs-timestamps",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/getting-started",
+    "path": "/docs/semantic-events/getting-started",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events",
+    "path": "/docs/semantic-events",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/schema",
+    "path": "/docs/semantic-events/schema",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
+  },
+  {
+    "id": "/docs/semantic-events/validation",
+    "path": "/docs/semantic-events/validation",
+    "title": "Untitled",
+    "descriptionSnippet": "...",
+    "content": "",
+    "headings": [],
+    "tags": []
   }
 ]
