@@ -2,11 +2,9 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node scripts/generate-nav.js && node scripts/generate-search-index.js",
+    "prebuild": "node scripts/cleanup-md-files.js && node ../scripts/generate-nav.js && node ../scripts/generate-search-index.js",
     "build": "next build",
-    "start": "next start",
-    "validate-docs": "node scripts/validate-markdoc.js",
-    "lint-docs": "echo 'Linting Markdoc files...' && node scripts/validate-markdoc.js"
+    "start": "next start"
   },
   "dependencies": {
     "@markdoc/markdoc": "latest",
@@ -21,7 +19,6 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "typescript": "latest",
-    "glob": "^10.3.10"
+    "typescript": "latest"
   }
 }
