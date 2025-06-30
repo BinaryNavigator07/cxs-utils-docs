@@ -1,11 +1,17 @@
-import {Callout} from '../../components';
+const { Callout } = require('../../components/Callout');
 
-export const callout = {
+const callout = {
   render: Callout,
   children: ['paragraph', 'tag', 'list'],
   attributes: {
     title: {
       type: String,
     },
+    type: {
+      type: String,
+      default: 'default',
+    },
   },
 };
+
+module.exports = { callout };

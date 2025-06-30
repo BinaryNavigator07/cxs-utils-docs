@@ -1,20 +1,24 @@
-import { Callout } from '../../components';
-import { Tag } from '@markdoc/markdoc'; // Assuming Tag might be needed from config
+const { Tag } = require('@markdoc/markdoc');
+const { Callout } = require('../../components/Callout');
 
-export const tip = {
+const tip = {
+  render: Callout,
   children: ['paragraph', 'tag', 'list'],
   attributes: {
     title: {
       type: String,
+      default: 'Tip',
     },
   },
   transform(node, config) {
     const attributes = node.transformAttributes(config);
     const children = node.transformChildren(config);
     const finalAttributes = { ...attributes, type: 'tip' };
-    if (attributes.title === undefined) {
+    if (!attributes.title) {
         finalAttributes.title = 'Tip';
     }
-    return new config.Tag(Callout, finalAttributes, children);
+    return new Tag(Callout, finalAttributes, children);
   }
 };
+
+module.exports = { tip };
