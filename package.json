@@ -6,7 +6,7 @@
     "build": "next build",
     "start": "next start",
     "validate-docs": "node scripts/validate-markdoc.js",
-    "lint-docs": "markdoc validate pages/**/*.mdoc"
+    "lint-docs": "echo 'Linting Markdoc files...' && node scripts/validate-markdoc.js"
   },
   "dependencies": {
     "@markdoc/markdoc": "latest",
@@ -21,6 +21,7 @@
     "@types/node": "latest",
     "@types/react": "latest",
     "@types/react-dom": "latest",
-    "typescript": "latest"
+    "typescript": "latest",
+    "glob": "^10.3.10"
   }
 }

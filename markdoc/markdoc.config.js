@@ -1,26 +1,27 @@
-import { nodes, Tag } from '@markdoc/markdoc';
+const { nodes, Tag } = require('@markdoc/markdoc');
 
 // Import custom components
-import { Callout } from '../components/Callout';
-import { CodeBlock } from '../components/CodeBlock';
-import { Heading } from '../components/Heading';
-import { Tabs, Tab } from '../components/Tabs';
-import CodePaneInjector from '../components/CodePaneInjector';
-import EnhancedImage from '../components/EnhancedImage';
+const { Callout } = require('../components/Callout');
+const { CodeBlock } = require('../components/CodeBlock');
+const { Heading } = require('../components/Heading');
+const { Tabs, Tab } = require('../components/Tabs');
+const CodePaneInjector = require('../components/CodePaneInjector');
+const EnhancedImage = require('../components/EnhancedImage');
 
 // Import custom nodes
-import { fence } from './nodes/fence.markdoc';
-import { heading } from './nodes/heading.markdoc';
-import { link } from './nodes/link.markdoc';
-import { image } from './nodes/image.markdoc';
+const { fence } = require('./nodes/fence.markdoc');
+const { heading } = require('./nodes/heading.markdoc');
+const { link } = require('./nodes/link.markdoc');
+const { image } = require('./nodes/image.markdoc');
 
 // Import custom tags
-import { callout } from './tags/callout.markdoc';
-import { note } from './tags/note.markdoc';
-import { warning } from './tags/warning.markdoc';
-import { tip } from './tags/tip.markdoc';
-import { important } from './tags/important.markdoc';
-import { codepane } from './tags/codepane.markdoc';
+const { callout } = require('./tags/callout.markdoc');
+const { note } = require('./tags/note.markdoc');
+const { warning } = require('./tags/warning.markdoc');
+const { tip } = require('./tags/tip.markdoc');
+const { important } = require('./tags/important.markdoc');
+const { codepane } = require('./tags/codepane.markdoc');
+const { tabs, tab } = require('./tags/tabs.markdoc');
 
 const config = {
   nodes: {
@@ -36,27 +37,8 @@ const config = {
     tip,
     important,
     codepane,
-    tabs: {
-      render: 'Tabs',
-      attributes: {},
-      transform(node, config) {
-        const labels = node
-          .transformChildren(config)
-          .filter((child) => child && child.name === 'Tab')
-          .map((tab) => (typeof tab === 'object' ? tab.attributes.label : null));
-
-        return new Tag(this.render, { labels }, node.transformChildren(config));
-      }
-    },
-    tab: {
-      render: 'Tab',
-      attributes: {
-        label: {
-          type: String,
-          required: true
-        }
-      }
-    }
+    tabs,
+    tab,
   },
   components: {
     Callout,
@@ -94,4 +76,4 @@ const config = {
   }
 };
 
-export default config;
+module.exports = config;

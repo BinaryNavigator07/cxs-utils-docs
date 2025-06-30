@@ -1,6 +1,6 @@
-import { Tag } from '@markdoc/markdoc';
+const { Tag } = require('@markdoc/markdoc');
 
-const tabsMarkdoc = {
+const tabs = {
     render: 'Tabs',
     attributes: {},
     transform(node, config) {
@@ -23,4 +23,4 @@ const tab = {
     }
 };
 
-export { tabsMarkdoc as tabs, tab };
+module.exports = { tabs, tab };
