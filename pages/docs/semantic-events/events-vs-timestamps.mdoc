@@ -75,11 +75,13 @@ When a Product Variant fires an event:
 When you see `_id` fields (like `inventory_item_id`), these should be thought of as references to other entities that should be included in the `involves` structure.
 
 Instead of:
+
 ```json
 "inventory_item_id": "54319739470149"
 ```
 
 Consider using:
+
 ```json
 "involves": [
   {

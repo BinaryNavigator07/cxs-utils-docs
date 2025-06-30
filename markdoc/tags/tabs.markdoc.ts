@@ -17,15 +17,10 @@ const tab = {
     render: 'Tab',
     attributes: {
         label: {
-            type: String
+            type: String,
+            required: true
         }
     }
 };
 
-/** @type {import('@markdoc/markdoc').Config} */
-const config = {
-    tags: {
-        tabs: tabsMarkdoc,
-        tab
-    }
-};
+export { tabsMarkdoc as tabs, tab };

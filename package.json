@@ -2,9 +2,11 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "prebuild": "node ../scripts/generate-nav.js && node ../scripts/generate-search-index.js",
+    "prebuild": "node scripts/generate-nav.js && node scripts/generate-search-index.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "validate-docs": "node scripts/validate-markdoc.js",
+    "lint-docs": "markdoc validate pages/**/*.mdoc"
   },
   "dependencies": {
     "@markdoc/markdoc": "latest",
