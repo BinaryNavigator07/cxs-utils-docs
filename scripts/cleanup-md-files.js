@@ -3,31 +3,34 @@ const path = require('path');
 
 function deleteMarkdownFiles(dir) {
   try {
-    const items = fs.readdirSync(dir);
+    const files = fs.readdirSync(dir);
     
-    for (const item of items) {
-      const fullPath = path.join(dir, item);
-      const stat = fs.statSync(fullPath);
+    files.forEach(file => {
+      const filePath = path.join(dir, file);
+      const stat = fs.statSync(filePath);
       
       if (stat.isDirectory()) {
         // Recursively process subdirectories
-        deleteMarkdownFiles(fullPath);
-      } else if (stat.isFile() && item.endsWith('.md')) {
+        deleteMarkdownFiles(filePath);
+      } else if (file.endsWith('.md')) {
         // Delete .md files
-        fs.unlinkSync(fullPath);
-        console.log(`Deleted: ${fullPath}`);
+        fs.unlinkSync(filePath);
+        console.log(`Deleted: ${filePath}`);
       }
-    }
+    });
   } catch (error) {
-    // If directory doesn't exist or other error, just continue
+    // If directory doesn't exist, that's fine - nothing to clean up
     if (error.code !== 'ENOENT') {
-      console.warn(`Warning: ${error.message}`);
+      console.error(`Error processing directory ${dir}:`, error.message);
     }
   }
 }
 
-// Start cleanup from pages directory
-const pagesDir = path.join(__dirname, '..', 'pages');
-console.log('Cleaning up .md files from pages directory...');
-deleteMarkdownFiles(pagesDir);
-console.log('Cleanup complete.');
+// Clean up .md files in the pages directory
+if (fs.existsSync('pages')) {
+  console.log('Cleaning up .md files...');
+  deleteMarkdownFiles('pages');
+  console.log('Cleanup complete.');
+} else {
+  console.log('Pages directory not found, skipping cleanup.');
+}
