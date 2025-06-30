@@ -28,3 +28,4 @@ out/
 # Optional: OS generated files
 Thumbs.db
 .idea/
+.env
