@@ -1,6 +1,6 @@
 # ContextSuite Documentation
 
-This repository contains the comprehensive documentation for ContextSuite, built with Next.js and Markdoc.
+This repository contains the comprehensive documentation for ContextSuite, built with Next.js and MDX.
 
 ## 🚀 Quick Start
 
@@ -19,32 +19,31 @@ npm run build
 
 ```
 ├── pages/                    # Next.js pages and documentation
-│   ├── docs/                # Main documentation content (.mdoc files)
+│   ├── docs/                # Main documentation content (.mdx files)
 │   └── _app.tsx             # Next.js app configuration
 ├── components/              # React components
 │   ├── Callout.tsx         # Custom callout components
 │   ├── CodeBlock.tsx       # Code block with syntax highlighting
 │   ├── Tabs.tsx            # Tabbed content component
+│   ├── MDXComponents.tsx   # MDX component mapping
 │   └── ...                 # Other UI components
-├── markdoc/                # Markdoc configuration
-│   ├── nodes/              # Custom Markdoc nodes
-│   ├── tags/               # Custom Markdoc tags
-│   └── markdoc.config.js   # Main Markdoc configuration
 ├── scripts/                # Build and utility scripts
 │   ├── generate-nav.js     # Navigation generation
 │   ├── generate-search-index.js # Search index generation
-│   └── validate-markdoc.js # Documentation validation
+│   ├── validate-mdx.js     # Documentation validation
+│   └── lint-mdx.js         # Documentation linting
 └── public/                 # Static assets
 ```
 
 ## 📝 Documentation Format
 
-This project uses **Markdoc** (.mdoc files) for enhanced documentation capabilities:
+This project uses **MDX** (.mdx files) for enhanced documentation capabilities:
 
-- **Custom Tags**: `{% callout %}`, `{% tabs %}`, `{% codepane %}`, etc.
-- **Enhanced Validation**: Built-in schema validation and link checking
+- **React Components**: Use React components directly in markdown
+- **Enhanced Validation**: Built-in validation and link checking
 - **Better Performance**: Optimized build-time processing
 - **Rich Components**: Interactive elements and enhanced formatting
+- **TypeScript Support**: Full TypeScript integration
 
 ## 🛠️ Available Scripts
 
@@ -57,7 +56,7 @@ This project uses **Markdoc** (.mdoc files) for enhanced documentation capabilit
 ## 📖 Writing Documentation
 
 ### File Format
-All documentation files use the `.mdoc` extension and include frontmatter:
+All documentation files use the `.mdx` extension and include frontmatter:
 
 ```yaml
 ---
@@ -67,52 +66,52 @@ nav_order: 1  # Optional: custom ordering
 ---
 ```
 
-### Custom Tags
+### Custom Components
 
 #### Callouts
-```markdown
-{% note %}
+```mdx
+<Note>
 Informational content
-{% /note %}
+</Note>
 
-{% warning %}
+<Warning>
 Warning content
-{% /warning %}
+</Warning>
 
-{% tip %}
+<Tip>
 Helpful tips
-{% /tip %}
+</Tip>
 
-{% important %}
+<Important>
 Critical information
-{% /important %}
+</Important>
 ```
 
 #### Tabs
-```markdown
-{% tabs %}
-  {% tab label="JavaScript" %}
-  ```javascript
-  console.log("Hello");
-  ```
-  {% /tab %}
-  {% tab label="Python" %}
-  ```python
-  print("Hello")
-  ```
-  {% /tab %}
-{% /tabs %}
+```mdx
+<Tabs>
+  <Tab label="JavaScript">
+    ```javascript
+    console.log("Hello");
+    ```
+  </Tab>
+  <Tab label="Python">
+    ```python
+    print("Hello")
+    ```
+  </Tab>
+</Tabs>
 ```
 
 #### Code Pane
-```markdown
-{% codepane %}
+```mdx
+<CodePane>
 ```json
 {
   "example": "Appears in right panel"
 }
 ```
-{% /codepane %}
+</CodePane>
 ```
 
 ## 🔍 Features
@@ -126,11 +125,11 @@ Critical information
 
 ## 🏗️ Architecture
 
-### Markdoc Integration
-- Custom nodes for enhanced Markdown processing
-- Custom tags for specialized content blocks
-- Validation rules for content quality
+### MDX Integration
+- React components directly in markdown
+- TypeScript support for component props
 - Build-time optimization for performance
+- Validation rules for content quality
 
 ### Component System
 - Reusable React components for consistent UI
@@ -140,7 +139,7 @@ Critical information
 
 ### Build Process
 1. **Pre-build**: Generate navigation and search index
-2. **Markdoc Processing**: Transform .mdoc files to React components
+2. **MDX Processing**: Transform .mdx files to React components
 3. **Next.js Build**: Static site generation with optimizations
 4. **Validation**: Check for broken links and content issues
 
@@ -149,35 +148,36 @@ Critical information
 ### File Organization
 - Use descriptive filenames in kebab-case
 - Organize related content in subdirectories
-- Include `index.mdoc` files for section overviews
+- Include `index.mdx` files for section overviews
 
 ### Writing Style
 - Use clear, concise language
 - Include code examples where helpful
 - Add proper headings for table of contents
-- Use custom tags for enhanced formatting
+- Use custom components for enhanced formatting
 
 ### Link Management
 - Use relative paths for internal links
-- Reference `.mdoc` files in links (URLs remain clean)
+- Reference `.mdx` files in links (URLs remain clean)
 - Test all links before publishing
 
 ## 🔧 Development
 
 ### Adding New Features
 1. Create components in `/components`
-2. Add Markdoc tags in `/markdoc/tags`
-3. Update configuration in `markdoc.config.js`
+2. Add to `MDXComponents.tsx` for use in MDX
+3. Update TypeScript types as needed
 4. Test with validation scripts
 
 ### Debugging
 - Use `npm run validate-docs` to check for issues
+- Use `npm run lint-docs` for style consistency
 - Check browser console for runtime errors
 - Verify navigation and search functionality
 
-## 📚 Migration from Markdown
+## 📚 Migration from Markdoc
 
-See `docs/MIGRATION_GUIDE.md` for detailed information about migrating from standard Markdown to Markdoc format.
+This project was migrated from Markdoc to MDX. See `docs/MDX_MIGRATION.md` for detailed information about the migration process and benefits.
 
 ## 🤝 Contributing
 

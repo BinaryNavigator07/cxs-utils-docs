@@ -4,6 +4,7 @@ import { CodeBlock } from './CodeBlock';
 import { Tabs, Tab } from './Tabs';
 import CodePaneInjector from './CodePaneInjector';
 import EnhancedImage from './EnhancedImage';
+import { Heading } from './Heading';
 
 // Custom components for MDX
 export const MDXComponents = {
@@ -21,12 +22,20 @@ export const MDXComponents = {
     );
   },
   
+  // Custom heading component
+  h1: (props) => <Heading level={1} {...props} />,
+  h2: (props) => <Heading level={2} {...props} />,
+  h3: (props) => <Heading level={3} {...props} />,
+  h4: (props) => <Heading level={4} {...props} />,
+  h5: (props) => <Heading level={5} {...props} />,
+  h6: (props) => <Heading level={6} {...props} />,
+  
   // Custom components
   Callout,
-  Note: (props) => <Callout type="note" {...props} />,
-  Warning: (props) => <Callout type="warning" {...props} />,
-  Tip: (props) => <Callout type="tip" {...props} />,
-  Important: (props) => <Callout type="important" {...props} />,
+  Note: (props) => <Callout type="note" title="Note" {...props} />,
+  Warning: (props) => <Callout type="warning" title="Warning" {...props} />,
+  Tip: (props) => <Callout type="tip" title="Tip" {...props} />,
+  Important: (props) => <Callout type="important" title="Important" {...props} />,
   Tabs,
   Tab,
   CodePane: CodePaneInjector,

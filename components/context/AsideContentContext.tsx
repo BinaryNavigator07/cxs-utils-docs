@@ -2,8 +2,8 @@ import React, { createContext, useState, useContext, ReactNode } from 'react';
 
 // Define the shape of the context data
 interface AsideContentContextType {
-  asideContent: ReactNode | null; // Markdoc AST Node or pre-rendered ReactNode
-  setAsideContent: (content: ReactNode | null) => void; // Function to set the content
+  asideContent: ReactNode | null;
+  setAsideContent: (content: ReactNode | null) => void;
 }
 
 // Create the context with a default undefined value initially

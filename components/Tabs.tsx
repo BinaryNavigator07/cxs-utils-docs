@@ -3,18 +3,24 @@ import React from 'react';
 export const TabContext = React.createContext<string | undefined>(undefined);
 
 interface TabsProps {
-  labels: string[];
+  labels?: string[];
   children: React.ReactNode;
 }
 
 export function Tabs({ labels, children }: TabsProps) {
-    const [currentTab, setCurrentTab] = React.useState(labels[0]);
+    // Extract labels from children if not provided
+    const extractedLabels = labels || React.Children.toArray(children)
+      .filter((child): child is React.ReactElement => React.isValidElement(child))
+      .map(child => child.props.label)
+      .filter(Boolean);
+
+    const [currentTab, setCurrentTab] = React.useState(extractedLabels[0]);
 
     return (
         <TabContext.Provider value={currentTab}>
             <div className="tabs-container">
                 <ul role="tablist" className="tabs-list">
-                    {labels.map((label) => (
+                    {extractedLabels.map((label) => (
                         <li key={label} className="tab-item">
                             <button
                                 role="tab"
