@@ -2,7 +2,19 @@ const withMDX = require('@next/mdx')({
   extension: /\.mdx?$/,
   options: {
     remarkPlugins: [require('remark-gfm')],
-    rehypePlugins: [require('rehype-highlight')],
+    rehypePlugins: [
+      [require('rehype-highlight'), {
+        languages: {
+          javascript: require('highlight.js/lib/languages/javascript'),
+          python: require('highlight.js/lib/languages/python'),
+          json: require('highlight.js/lib/languages/json'),
+          bash: require('highlight.js/lib/languages/bash'),
+          typescript: require('highlight.js/lib/languages/typescript'),
+          jsx: require('highlight.js/lib/languages/javascript'),
+          tsx: require('highlight.js/lib/languages/typescript'),
+        }
+      }]
+    ],
     providerImportSource: '@mdx-js/react',
   },
 });
