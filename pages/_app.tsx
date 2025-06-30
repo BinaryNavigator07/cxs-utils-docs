@@ -6,7 +6,7 @@ import { useRouter } from 'next/router';
 import { SideNav, TableOfContents, TopNav } from '../components';
 import CodePaneDisplay from '../components/CodePaneDisplay';
 import { AsideContentProvider, useAsideContent } from '../components/context/AsideContentContext';
-import { SearchProvider } from '../components/context/SearchContext'; // Import SearchProvider
+import { SearchProvider } from '../components/context/SearchContext';
 
 import 'prismjs';
 import 'prismjs/components/prism-bash.min';
@@ -16,8 +16,8 @@ import '../public/globals.css';
 import type { AppProps } from 'next/app';
 import type { MarkdocNextJsPageProps } from '@markdoc/next.js';
 
-const TITLE = 'Markdoc';
-const DESCRIPTION = 'A powerful, flexible, Markdown-based authoring framework';
+const TITLE = 'ContextSuite Documentation';
+const DESCRIPTION = 'AI-powered commerce platform for mid-market and enterprise retailers';
 
 function collectHeadings(node, sections = []) {
   if (node) {
@@ -77,55 +77,51 @@ function AppContent({ Component, pageProps }: AppProps<MyAppProps>) {
         <Link href="/docs">Docs</Link>
       </TopNav>
       <div className="page-container">
-        <SideNav /> {/* Flex: 0 0 auto (from its own styles) */}
+        <SideNav />
         <div className={`main-content-wrapper ${asideContent ? 'with-aside' : 'without-aside'}`}>
-          {/* This wrapper helps manage the layout of main content and TOC */}
           <main className="main-article-content">
             <Component {...pageProps} />
           </main>
-          <TableOfContents toc={toc} /> {/* Positioned sticky relative to main-content-wrapper */}
+          <TableOfContents toc={toc} />
         </div>
-        <CodePaneDisplay /> {/* Flex: 0 0 auto (from its own styles) */}
+        <CodePaneDisplay />
       </div>
       <style jsx>{`
         .page-container {
-          position: fixed; /* Changed from fixed to relative for potential footer, but fixed is fine for now */
+          position: fixed;
           top: var(--top-nav-height);
           left: 0;
           right: 0;
           bottom: 0;
           display: flex;
-          overflow: hidden; /* Prevent whole page scroll when content scrolls */
+          overflow: hidden;
         }
 
         .main-content-wrapper {
-          flex-grow: 1; /* Takes up available space between SideNav and CodePane */
-          display: flex; /* To position main and TOC */
-          overflow-y: auto; /* Primary scrollbar for content area */
+          flex-grow: 1;
+          display: flex;
+          overflow-y: auto;
           height: calc(100vh - var(--top-nav-height));
         }
 
         .main-article-content {
-          flex-grow: 1; /* Main article takes available space from TOC */
+          flex-grow: 1;
           padding: 1.5rem 2rem 2rem;
-          max-width: 800px; /* Max width for readability */
-          margin-right: auto; /* Pushes TOC to the right if not enough space */
-          margin-left: auto; /* Centers content if TOC is not present or space allows */
+          max-width: 800px;
+          margin-right: auto;
+          margin-left: auto;
         }
 
-        /* Responsive adjustments: On smaller screens, CodePane might be hidden or stacked. */
-        /* For now, we assume CodePane and SideNav have fixed/max widths and main content fills the rest. */
-
-        @media (max-width: 1024px) { /* Example breakpoint for when TOC might become too squished */
+        @media (max-width: 1024px) {
           .main-article-content {
-            margin-right: 0; /* Allow TOC to take its space or hide TOC */
+            margin-right: 0;
           }
-          /* Consider hiding TOC or CodePaneDisplay at smaller sizes if needed */
         }
-        @media (max-width: 768px) { /* Example breakpoint for mobile */
-           .main-content-wrapper {
-             /* On mobile, perhaps only main content is visible, side/code panes are drawers */
-           }
+        
+        @media (max-width: 768px) {
+          .main-content-wrapper {
+            /* Mobile adjustments */
+          }
         }
       `}</style>
     </>
@@ -134,7 +130,7 @@ function AppContent({ Component, pageProps }: AppProps<MyAppProps>) {
 
 export default function MyApp(props: AppProps<MyAppProps>) {
   return (
-    <SearchProvider> {/* Wrap with SearchProvider */}
+    <SearchProvider>
       <AsideContentProvider>
         <AppContent {...props} />
       </AsideContentProvider>

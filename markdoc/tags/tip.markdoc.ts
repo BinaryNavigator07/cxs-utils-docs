@@ -2,7 +2,6 @@ const { Tag } = require('@markdoc/markdoc');
 const { Callout } = require('../../components/Callout');
 
 const tip = {
-  render: Callout,
   children: ['paragraph', 'tag', 'list'],
   attributes: {
     title: {

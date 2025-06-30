@@ -10,3 +10,92 @@ description: How to setup your ContextSuite account
 ContextSuite is the AI-powered commerce platform tailored for mid-market and enterprise retailers. Our modular system seamlessly integrates dynamic pricing, AI sales agents, real-time analytics, and automated support, delivering unparalleled efficiency and personalized customer experiences.
 
 Explore this documentation to quickly understand how ContextSuite's connected intelligence streamlines your e-commerce operations, maximizes profitability, and enhances customer satisfaction.
+
+## Quick Start
+
+Get started with ContextSuite by exploring our comprehensive documentation:
+
+- **[Semantic Events](/docs/semantic-events)** - Learn about our event tracking system
+- **[Entities](/docs/entities)** - Understand how we model business entities  
+- **[Datapoints](/docs/datapoints)** - Discover granular data collection
+- **[Event Bible](/docs/semantic-events/bible)** - Reference for all supported events
+
+## Key Features
+
+{% callout type="note" %}
+ContextSuite provides a complete semantic event framework for modern e-commerce analytics.
+{% /callout %}
+
+### 🎯 **Semantic Events**
+Capture rich, contextual business events that go beyond simple page views and clicks.
+
+### 🏢 **Entity Management** 
+Model complex business relationships between users, products, orders, and more.
+
+### 📊 **Real-time Analytics**
+Get instant insights from your data with our built-in analytics platform.
+
+### 🤖 **AI-Powered Insights**
+Leverage machine learning for automated classification, sentiment analysis, and predictions.
+
+## Getting Started
+
+{% tabs %}
+  {% tab label="Quick Setup" %}
+  ```bash
+  # Install the CXS Analytics client
+  npm install @smartdataHQ/cxs-analytics
+  
+  # Initialize in your app
+  import { cxsAnalytics } from '@smartdataHQ/cxs-analytics';
+  
+  cxsAnalytics({
+    host: 'https://inbox.contextsuite.com',
+    writeKey: 'YOUR_WRITE_KEY'
+  });
+  ```
+  {% /tab %}
+  {% tab label="Send First Event" %}
+  ```javascript
+  // Track your first semantic event
+  cxs.track('Hello World Sent', {
+    content: {
+      message: 'This is my first semantic event!'
+    }
+  });
+  ```
+  {% /tab %}
+  {% tab label="Verify Setup" %}
+  1. Visit your Context Suite Events Dashboard
+  2. Check the Event Explorer
+  3. Look for your "Hello World Sent" event
+  4. Verify the event properties are captured correctly
+  {% /tab %}
+{% /tabs %}
+
+## Documentation Structure
+
+Our documentation is organized into several key sections:
+
+- **[Getting Started](/docs/semantic-events/getting-started)** - Quick setup guide
+- **[Best Practices](/docs/semantic-events/best-practices)** - Implementation guidelines
+- **[Schema Reference](/docs/semantic-events/schema)** - Complete field documentation
+- **[Event Validation](/docs/semantic-events/validation)** - Ensure data quality
+- **[Integration Guides](/docs/integrations)** - Platform-specific setup
+
+{% tip %}
+Start with the [Getting Started guide](/docs/semantic-events/getting-started) to send your first event in under 5 minutes.
+{% /tip %}
+
+## Support & Resources
+
+Need help getting started? We're here to support you:
+
+- 📖 **Documentation**: Comprehensive guides and API references
+- 💬 **Community**: Join our developer community for tips and best practices  
+- 🎯 **Examples**: Real-world implementation examples and use cases
+- 🛠️ **Tools**: Validation utilities and debugging helpers
+
+{% important %}
+For production deployments, make sure to review our [Best Practices](/docs/semantic-events/best-practices) guide to ensure optimal performance and data quality.
+{% /important %}
