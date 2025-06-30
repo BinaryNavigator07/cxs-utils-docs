@@ -1,5 +1,4 @@
 import React, { createContext, useState, useContext, ReactNode } from 'react';
-import { MarkdocFile } from '@markdoc/markdoc'; // Using this as a placeholder for content type
 
 // Define the shape of the context data
 interface AsideContentContextType {
