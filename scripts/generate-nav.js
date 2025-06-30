@@ -1,12 +1,39 @@
 const fs = require('fs');
 const path = require('path');
-const Markdoc = require('@markdoc/markdoc');
 
 function extractFrontmatter(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
-    const ast = Markdoc.parse(content);
-    return ast.attributes?.frontmatter || {};
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    
+    if (frontmatterMatch) {
+      const frontmatterText = frontmatterMatch[1];
+      const frontmatter = {};
+      
+      // Simple YAML parsing for basic frontmatter
+      frontmatterText.split('\n').forEach(line => {
+        const match = line.match(/^(\w+):\s*(.*)$/);
+        if (match) {
+          const [, key, value] = match;
+          // Handle quoted strings
+          if (value.startsWith('"') && value.endsWith('"')) {
+            frontmatter[key] = value.slice(1, -1);
+          } else if (value.startsWith("'") && value.endsWith("'")) {
+            frontmatter[key] = value.slice(1, -1);
+          } else if (!isNaN(value)) {
+            frontmatter[key] = parseInt(value);
+          } else if (value === 'true' || value === 'false') {
+            frontmatter[key] = value === 'true';
+          } else {
+            frontmatter[key] = value;
+          }
+        }
+      });
+      
+      return frontmatter;
+    }
+    
+    return {};
   } catch (error) {
     console.warn(`Warning: Could not parse frontmatter from ${filePath}`);
     return {};
@@ -15,10 +42,14 @@ function extractFrontmatter(filePath) {
 
 function generateNavigation() {
   const docsDir = path.join(process.cwd(), 'pages/docs');
-  const navItems = [];
   
   function processDirectory(dir, basePath = '/docs') {
     const items = [];
+    
+    if (!fs.existsSync(dir)) {
+      return items;
+    }
+    
     const files = fs.readdirSync(dir);
     
     for (const file of files) {
@@ -29,7 +60,7 @@ function generateNavigation() {
         const subItems = processDirectory(filePath, `${basePath}/${file}`);
         if (subItems.length > 0) {
           // Check for index file in subdirectory
-          const indexPath = path.join(filePath, 'index.mdoc');
+          const indexPath = path.join(filePath, 'index.mdx');
           let title = file.charAt(0).toUpperCase() + file.slice(1);
           let order = null;
           
@@ -46,9 +77,9 @@ function generateNavigation() {
             children: subItems
           });
         }
-      } else if (file.endsWith('.mdoc')) {
+      } else if (file.endsWith('.mdx')) {
         const frontmatter = extractFrontmatter(filePath);
-        const fileName = file.replace('.mdoc', '');
+        const fileName = file.replace('.mdx', '');
         
         // Skip if marked to skip in search/nav
         if (frontmatter.search_skip) continue;

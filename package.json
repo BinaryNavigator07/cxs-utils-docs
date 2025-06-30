@@ -4,16 +4,21 @@
     "dev": "next dev",
     "prebuild": "node scripts/cleanup-md-files.js && node scripts/generate-nav.js && node scripts/generate-search-index.js",
     "build": "next build",
-    "start": "next start"
+    "start": "next start",
+    "validate-docs": "node scripts/validate-mdx.js",
+    "lint-docs": "node scripts/lint-mdx.js"
   },
   "dependencies": {
-    "@markdoc/markdoc": "latest",
-    "@markdoc/next.js": "latest",
+    "@mdx-js/loader": "^3.0.0",
+    "@mdx-js/react": "^3.0.0",
+    "@next/mdx": "^14.0.0",
     "flexsearch": "^0.8.205",
     "next": "latest",
     "prismjs": "latest",
     "react": "latest",
-    "react-dom": "latest"
+    "react-dom": "latest",
+    "remark-gfm": "^4.0.0",
+    "rehype-highlight": "^7.0.0"
   },
   "devDependencies": {
     "@types/node": "latest",

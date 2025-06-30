@@ -1,9 +1,14 @@
-const withMarkdoc = require('@markdoc/next.js');
+const withMDX = require('@next/mdx')({
+  extension: /\.mdx?$/,
+  options: {
+    remarkPlugins: [require('remark-gfm')],
+    rehypePlugins: [require('rehype-highlight')],
+    providerImportSource: '@mdx-js/react',
+  },
+});
 
-module.exports = withMarkdoc({
-  schemaPath: './markdoc/markdoc.config.js',
-})({
-  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'mdoc'],
+module.exports = withMDX({
+  pageExtensions: ['js', 'jsx', 'ts', 'tsx', 'md', 'mdx'],
   trailingSlash: false,
   
   // Configure image optimization
@@ -12,11 +17,11 @@ module.exports = withMarkdoc({
     formats: ['image/webp', 'image/avif'],
   },
   
-  // Configure redirects for old .md URLs to .mdoc
+  // Configure redirects for old .mdoc URLs to .mdx
   async redirects() {
     return [
       {
-        source: '/docs/:path*.md',
+        source: '/docs/:path*.mdoc',
         destination: '/docs/:path*',
         permanent: true,
       },
@@ -32,16 +37,5 @@ module.exports = withMarkdoc({
         destination: '/docs/index',
       },
     ];
-  },
-  
-  // Webpack configuration for Markdoc
-  webpack: (config, { isServer }) => {
-    // Handle .mdoc files
-    config.module.rules.push({
-      test: /\.mdoc$/,
-      use: '@markdoc/next.js/loader',
-    });
-    
-    return config;
   },
 });

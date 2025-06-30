@@ -2,11 +2,13 @@ import React, { useEffect } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
+import { MDXProvider } from '@mdx-js/react';
 
 import { SideNav, TableOfContents, TopNav } from '../components';
 import CodePaneDisplay from '../components/CodePaneDisplay';
 import { AsideContentProvider, useAsideContent } from '../components/context/AsideContentContext';
 import { SearchProvider } from '../components/context/SearchContext';
+import { MDXComponents } from '../components/MDXComponents';
 
 import 'prismjs';
 import 'prismjs/components/prism-bash.min';
@@ -14,32 +16,29 @@ import 'prismjs/themes/prism.css';
 import '../public/globals.css';
 
 import type { AppProps } from 'next/app';
-import type { MarkdocNextJsPageProps } from '@markdoc/next.js';
 
 const TITLE = 'ContextSuite Documentation';
 const DESCRIPTION = 'AI-powered commerce platform for mid-market and enterprise retailers';
 
-function collectHeadings(node, sections = []) {
-  if (node) {
-    if (node.name === 'Heading') {
-      const title = node.children[0];
-      if (typeof title === 'string') {
-        sections.push({ ...node.attributes, title });
-      }
-    }
-    if (node.children) {
-      for (const child of node.children) {
-        collectHeadings(child, sections);
-      }
+function collectHeadings(content: string): Array<{ id: string; title: string; level: number }> {
+  const headings: Array<{ id: string; title: string; level: number }> = [];
+  const headingRegex = /^(#{1,6})\s+(.+)$/gm;
+  let match;
+  
+  while ((match = headingRegex.exec(content)) !== null) {
+    const level = match[1].length;
+    const title = match[2].trim();
+    const id = title.toLowerCase().replace(/[^\w\s-]/g, '').replace(/\s+/g, '-');
+    
+    if (level >= 2 && level <= 3) {
+      headings.push({ id, title, level });
     }
   }
-  return sections;
+  
+  return headings;
 }
 
-export type MyAppProps = MarkdocNextJsPageProps;
-
-function AppContent({ Component, pageProps }: AppProps<MyAppProps>) {
-  const { markdoc } = pageProps;
+function AppContent({ Component, pageProps }: AppProps) {
   const router = useRouter();
   const { asideContent, setAsideContent } = useAsideContent();
 
@@ -53,17 +52,15 @@ function AppContent({ Component, pageProps }: AppProps<MyAppProps>) {
     };
   }, [router.events, setAsideContent]);
 
-  let title = TITLE;
-  let description = DESCRIPTION;
-  if (markdoc) {
-    if (markdoc.frontmatter.title) title = markdoc.frontmatter.title;
-    if (markdoc.frontmatter.description) description = markdoc.frontmatter.description;
-  }
-
-  const toc = pageProps.markdoc?.content ? collectHeadings(pageProps.markdoc.content) : [];
+  // Extract title and description from pageProps if available
+  const title = pageProps.title || TITLE;
+  const description = pageProps.description || DESCRIPTION;
+  
+  // For MDX pages, we'll need to extract headings differently
+  const toc = pageProps.content ? collectHeadings(pageProps.content) : [];
 
   return (
-    <>
+    <MDXProvider components={MDXComponents}>
       <Head>
         <title>{title}</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
@@ -124,11 +121,11 @@ function AppContent({ Component, pageProps }: AppProps<MyAppProps>) {
           }
         }
       `}</style>
-    </>
+    </MDXProvider>
   );
 }
 
-export default function MyApp(props: AppProps<MyAppProps>) {
+export default function MyApp(props: AppProps) {
   return (
     <SearchProvider>
       <AsideContentProvider>

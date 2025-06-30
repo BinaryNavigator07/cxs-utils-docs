@@ -1,44 +1,56 @@
 const fs = require('fs');
 const path = require('path');
-const Markdoc = require('@markdoc/markdoc');
 
 function extractSearchableContent(filePath) {
   try {
     const content = fs.readFileSync(filePath, 'utf8');
-    const ast = Markdoc.parse(content);
-    const frontmatter = ast.attributes?.frontmatter || {};
+    
+    // Extract frontmatter
+    const frontmatterMatch = content.match(/^---\n([\s\S]*?)\n---/);
+    let frontmatter = {};
+    let mainContent = content;
+    
+    if (frontmatterMatch) {
+      const frontmatterText = frontmatterMatch[1];
+      mainContent = content.slice(frontmatterMatch[0].length);
+      
+      // Simple YAML parsing
+      frontmatterText.split('\n').forEach(line => {
+        const match = line.match(/^(\w+):\s*(.*)$/);
+        if (match) {
+          const [, key, value] = match;
+          if (value.startsWith('"') && value.endsWith('"')) {
+            frontmatter[key] = value.slice(1, -1);
+          } else if (value.startsWith("'") && value.endsWith("'")) {
+            frontmatter[key] = value.slice(1, -1);
+          } else if (value === 'true' || value === 'false') {
+            frontmatter[key] = value === 'true';
+          } else {
+            frontmatter[key] = value;
+          }
+        }
+      });
+    }
     
     // Skip if marked to skip in search
     if (frontmatter.search_skip) return null;
     
-    // Extract text content from AST
-    function extractText(node) {
-      if (typeof node === 'string') return node;
-      if (!node || !node.children) return '';
-      
-      return node.children
-        .map(child => extractText(child))
-        .join(' ')
-        .replace(/\s+/g, ' ')
-        .trim();
-    }
+    // Extract text content (remove MDX components and markdown syntax)
+    let textContent = mainContent
+      .replace(/<[^>]*>/g, '') // Remove HTML/JSX tags
+      .replace(/```[\s\S]*?```/g, '') // Remove code blocks
+      .replace(/`[^`]*`/g, '') // Remove inline code
+      .replace(/\[([^\]]*)\]\([^)]*\)/g, '$1') // Convert links to text
+      .replace(/[#*_~]/g, '') // Remove markdown formatting
+      .replace(/\s+/g, ' ') // Normalize whitespace
+      .trim();
     
-    const textContent = extractText(ast);
-    
-    // Extract headings for better search context
+    // Extract headings
     const headings = [];
-    function extractHeadings(node) {
-      if (node && node.type === 'heading') {
-        const headingText = extractText(node);
-        if (headingText) {
-          headings.push(headingText);
-        }
-      }
-      if (node && node.children) {
-        node.children.forEach(extractHeadings);
-      }
+    const headingMatches = mainContent.matchAll(/^(#{1,6})\s+(.+)$/gm);
+    for (const match of headingMatches) {
+      headings.push(match[2].trim());
     }
-    extractHeadings(ast);
     
     return {
       title: frontmatter.title || 'Untitled',
@@ -58,6 +70,10 @@ function generateSearchIndex() {
   const searchIndex = [];
   
   function processDirectory(dir, basePath = '/docs') {
+    if (!fs.existsSync(dir)) {
+      return;
+    }
+    
     const files = fs.readdirSync(dir);
     
     for (const file of files) {
@@ -66,10 +82,10 @@ function generateSearchIndex() {
       
       if (stat.isDirectory()) {
         processDirectory(filePath, `${basePath}/${file}`);
-      } else if (file.endsWith('.mdoc')) {
+      } else if (file.endsWith('.mdx')) {
         const content = extractSearchableContent(filePath);
         if (content) {
-          const fileName = file.replace('.mdoc', '');
+          const fileName = file.replace('.mdx', '');
           let urlPath;
           
           if (fileName === 'index') {
